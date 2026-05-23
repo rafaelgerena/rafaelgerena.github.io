@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rafael Gerena</title>
+  <title>Work — Rafael Gerena</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -55,57 +55,37 @@
       padding: 5rem 2rem 6rem;
     }
 
-    .hero-name {
+    .page-heading {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2.75rem, 6vw, 4.25rem);
+      font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 400;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-      margin-bottom: 0.85rem;
+      margin-bottom: 1rem;
     }
 
-    .hero-headline {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #777;
-      margin-bottom: 2.75rem;
+    .page-intro {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 3.5rem;
+      line-height: 1.65;
     }
 
-    .thesis {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.175rem;
-      font-style: italic;
-      line-height: 1.75;
-      color: #1A1A1A;
-      margin-bottom: 4.5rem;
-    }
+    .link-list { display: flex; flex-direction: column; }
 
-    .sections { display: flex; flex-direction: column; }
-
-    .section-item {
+    .link-item {
       border-top: 1px solid #D8D5CE;
-      padding: 1.4rem 0;
+      padding: 1.25rem 0;
     }
 
-    .section-item:last-child { border-bottom: 1px solid #D8D5CE; }
+    .link-item:last-child { border-bottom: 1px solid #D8D5CE; }
 
-    .section-item a {
+    .link-item a {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.35rem;
-      font-weight: 400;
+      font-size: 1.1rem;
       color: #1A1A1A;
       text-decoration: none;
-      display: block;
-      margin-bottom: 0.3rem;
     }
 
-    .section-item a:hover { opacity: 0.55; }
-
-    .section-desc {
-      font-size: 0.85rem;
-      color: #666;
-    }
+    .link-item a:hover { opacity: 0.55; }
 
     footer {
       text-align: center;
@@ -133,23 +113,24 @@
   </nav>
 
   <main>
-    <h1 class="hero-name">Rafael Gerena</h1>
-    <p class="hero-headline">Foresight-Driven Communications Executive</p>
+    <h1 class="page-heading">Work</h1>
+    <p class="page-intro">Selected communications results spanning earned media, executive platforms, and institutional positioning.</p>
 
-    <p class="thesis">For 17+ years, I've led enterprise communications at the intersection of emerging technology, policy, and institutional narrative — anticipating the stories that matter before they peak, and positioning organizations to own them.</p>
-
-    <div class="sections">
-      <div class="section-item">
-        <a href="/work/">Work</a>
-        <p class="section-desc">Earned media, executive platforms, and communications results.</p>
+    <div class="link-list">
+      <div class="link-item">
+        <a href="#">NYT Technology Feature (February 2025)</a>
       </div>
-      <div class="section-item">
-        <a href="/builds/">Builds</a>
-        <p class="section-desc">AI tools and workflow automations built in production.</p>
+      <div class="link-item">
+        <a href="#">NYT Editorial Board Endorsement (December 2024)</a>
       </div>
-      <div class="section-item">
-        <a href="/writing/">Writing</a>
-        <p class="section-desc">Published thinking on communications, AI, and strategy.</p>
+      <div class="link-item">
+        <a href="#">WAY / The Weeknd Campaign</a>
+      </div>
+      <div class="link-item">
+        <a href="#">Nasdaq Closing Bell</a>
+      </div>
+      <div class="link-item">
+        <a href="#">Harvard Business School Podcast</a>
       </div>
     </div>
   </main>
