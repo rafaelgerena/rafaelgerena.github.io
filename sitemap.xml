@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://rafaelgerena.github.io/work/hbs-podcast/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://rafaelgerena.github.io/builds/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
