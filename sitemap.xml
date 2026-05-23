@@ -20,4 +20,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-05-20-ai-role-modeling-leadership/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-05-18-generative-engine-optimization/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-05-15-foresight-driven-communications/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-05-13-way-campaign-innovative-media/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
