@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Speech Analyzer: Rafael Gerena</title>
+  <meta name="description" content="Communications intelligence analysis of Satya Nadella's messaging across three high-stakes venues: earnings call, Davos, long-form podcast, over a 13-month span. Built by Rafael Gerena." />
+  <meta property="og:title" content="Executive Speech Analyzer: Rafael Gerena" />
+  <meta property="og:description" content="Communications intelligence analysis of Satya Nadella's messaging across earnings, Davos, and podcast. 13 months, three venue types, four analytical frameworks." />
+  <meta property="og:url" content="https://rafaelgerena.github.io/builds/speech-analyzer/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rafael Gerena" />
+  <meta name="author" content="Rafael Gerena" />
+  <link rel="canonical" href="https://rafaelgerena.github.io/builds/speech-analyzer/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F8F6F1;
+      color: #1A1A1A;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    nav {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid #D8D5CE;
+    }
+
+    .nav-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { opacity: 0.55; }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+    }
+
+    .project-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 0.85rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-desc {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 3rem;
+    }
+
+    /* Results table */
+    .results-table {
+      border-top: 1px solid #D8D5CE;
+      border-bottom: 1px solid #D8D5CE;
+      margin-bottom: 3rem;
+    }
+
+    .results-row {
+      display: flex;
+      align-items: baseline;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #EDEAE4;
+      font-size: 0.875rem;
+    }
+
+    .results-row:last-child { border-bottom: none; }
+
+    .results-label {
+      color: #888;
+      width: 180px;
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .results-value { color: #1A1A1A; }
+
+    /* Prose sections */
+    .prose-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .prose-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+
+    .prose-body {
+      font-size: 0.925rem;
+      color: #444;
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    /* Tabs */
+    .tabs-wrapper {
+      margin-top: 3.5rem;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #D8D5CE;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs::after {
+      content: '';
+      flex-shrink: 0;
+      width: 1rem;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 2.25rem 0.75rem 0;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      color: #1A1A1A;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .tab-btn.active {
+      border-bottom-color: #1A1A1A;
+    }
+
+    .tab-btn.coming-soon:not(.active) {
+      opacity: 0.5;
+    }
+
+    .tab-btn:not(.active):hover { opacity: 0.55; }
+
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Coming soon note */
+    .soon-note {
+      font-style: italic;
+      color: #aaa;
+      font-size: 0.875rem;
+      padding: 1.5rem 0 2rem;
+    }
+
+    /* Analysis sub-sections */
+    .analysis-section {
+      padding: 2rem 0;
+      border-bottom: 1px solid #EDEAE4;
+    }
+
+    .analysis-section:first-child { padding-top: 0; }
+    .analysis-section:last-child { border-bottom: none; }
+
+    .analysis-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+
+    .analysis-placeholder {
+      font-style: italic;
+      color: #bbb;
+      font-size: 0.85rem;
+    }
+
+    /* Why it matters */
+    .why-section {
+      margin-top: 3.5rem;
+      padding-top: 3rem;
+      border-top: 1px solid #D8D5CE;
+    }
+
+    /* External links */
+    .links-section {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid #D8D5CE;
+    }
+
+    .links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .links-list a {
+      font-size: 0.875rem;
+      color: #1A1A1A;
+      text-decoration: underline;
+      text-decoration-color: #C8C5BE;
+      text-underline-offset: 3px;
+    }
+
+    .links-list a:hover { opacity: 0.55; }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: uppercase;
+    }
+
+    /* Analysis body text */
+    .analysis-body {
+      font-size: 0.925rem;
+      color: #444;
+      line-height: 1.75;
+      margin-bottom: 0.9rem;
+    }
+
+    .analysis-body:last-child { margin-bottom: 0; }
+
+    /* Language inventory table */
+    .inventory-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .inventory-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      font-weight: 400;
+      padding: 0.5rem 1.25rem 0.5rem 0;
+      border-bottom: 1px solid #D8D5CE;
+    }
+
+    .inventory-table td {
+      font-size: 0.875rem;
+      color: #444;
+      padding: 0.65rem 1.25rem 0.65rem 0;
+      border-bottom: 1px solid #EDEAE4;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    .inventory-table tr:last-child td { border-bottom: none; }
+
+    .inventory-table td:first-child { color: #1A1A1A; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1.25rem 1.5rem; }
+      main { padding: 3rem 1.5rem 5rem; }
+      .results-label { width: 130px; }
+      .inventory-table th,
+      .inventory-table td { font-size: 0.8rem; padding-right: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-name">&larr; Home &middot; Rafael Gerena</a>
+    <div class="nav-links">
+      <a href="/work/">Work</a>
+      <a href="/builds/">Builds</a>
+      <a href="/writing/">Writing</a>
+    </div>
+  </nav>
+
+  <main>
+    <article>
+
+      <header>
+        <p class="project-label">Executive Speech Analyzer</p>
+        <h1 class="project-title">Satya Nadella<br>Messaging Consistency</h1>
+        <p class="project-desc">Communications intelligence tool analyzing message consistency, audience adaptation, and narrative arc across three high-stakes venues over a 13-month span. No API. No external data dependencies. Sourced entirely from public transcripts.</p>
+      </header>
+
+      <div class="results-table" role="table" aria-label="Project scope">
+        <div class="results-row">
+          <span class="results-label">Subject</span>
+          <span class="results-value">Satya Nadella, CEO, Microsoft</span>
+        </div>
+        <div class="results-row">
+          <span class="results-label">Sources</span>
+          <span class="results-value">3 public transcripts: earnings call, Davos panel, long-form podcast</span>
+        </div>
+        <div class="results-row">
+          <span class="results-label">Timespan</span>
+          <span class="results-value">December 2024 – January 2026 &middot; 13 months</span>
+        </div>
+        <div class="results-row">
+          <span class="results-label">Framework</span>
+          <span class="results-value">Four-part analysis: consistency, gaps, vulnerabilities, recommendations</span>
+        </div>
+        <div class="results-row">
+          <span class="results-label">Status</span>
+          <span class="results-value">Messaging Consistency analysis in progress &middot; Full report publishing June 2026</span>
+        </div>
+      </div>
+
+      <div class="prose-section">
+        <p class="prose-label">Context</p>
+        <p class="prose-body">Nadella is among the most studied executive communicators in technology. His message discipline across heterogeneous venues, investor calls, global policy forums, and long-form media, is a benchmark for large-organization communications leadership. Understanding how a world-class communicator maintains consistency while adapting register across audiences is directly applicable to the practice of executive communications at the VP and Chief Communications Officer (CCO) level.</p>
+      </div>
+
+      <div class="prose-section">
+        <p class="prose-label">Approach</p>
+        <p class="prose-body">Each transcript was processed in its own session before analysis began, a token-efficient workflow that also mirrors how a communications practitioner should think: what did this specific audience hear, before asking whether the message held across all of them. This compression-first approach is a deliberate governance choice, not a technical workaround. It controls cost, reduces context bleed between sources, and produces cleaner analysis. The output is a static HTML page with no external dependencies. Analysis directed using Claude. Every editorial judgment reviewed, refined, and approved by the analyst.</p>
+      </div>
+
+      <div class="tabs-wrapper">
+
+        <div class="tabs" role="tablist" aria-label="Analysis sections">
+          <button class="tab-btn active"       role="tab" aria-selected="true"  aria-controls="panel-1" id="tab-1">Consistency</button>
+          <button class="tab-btn coming-soon"  role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Gap Analysis</button>
+          <button class="tab-btn coming-soon"  role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3">Vulnerabilities</button>
+          <button class="tab-btn coming-soon"  role="tab" aria-selected="false" aria-controls="panel-4" id="tab-4">Recommendations</button>
+        </div>
+
+        <div class="tab-panel active" id="panel-1" role="tabpanel" aria-labelledby="tab-1">
+
+          <div class="analysis-section">
+            <h2 class="analysis-title">The Stable Core</h2>
+            <p class="analysis-body"><strong>Infrastructure-as-inevitable-layer.</strong> Nadella's foundational move is positioning Microsoft one level above the model race. In the earnings call it's the stack tour (Azure &rarr; Fabric &rarr; Foundry &rarr; Copilot). In the podcast it's "structural position" as a master key applied to every computing era. At Davos it's "token factories": a capital-market metaphor for the same idea. The surface language changes; the argument never does. The bet is not on any single model winning. The bet is that whoever wins will need Microsoft's infrastructure to do it.</p>
+            <p class="analysis-body"><strong>Anti-winner-take-all as a governance signal.</strong> In the podcast this is explicit and near-reflexive: he corrects "win or take all" framing instinctively, describing infrastructure as inherently multi-player. At Davos, the same logic runs under "ecosystem effects" and the multi-model agnosticism framing. Even in the earnings call, the stack tour performs breadth over dominance. This is not modesty; it's antitrust inoculation practiced at the vocabulary level.</p>
+            <p class="analysis-body"><strong>External validation over assertion.</strong> Nadella almost never claims superiority directly. He borrows authority: customer logos (Novartis, Barclays, Mass General) in earnings without attached financials; historical analogies (Industrial Revolution, PC adoption, database markets) at Davos; Carol Dweck and a Dartmouth economist in the podcast. The pattern is consistent: he arrives at a claim via citation rather than declaration. It signals stewardship, not disruption, across all three rooms.</p>
+            <p class="analysis-body"><strong>Three synchronized silences.</strong> All three sources contain the same three voids: labor displacement mechanics (mentioned arithmetically at most, never humanistically), Microsoft-OpenAI regulatory exposure (deflected in every context), and AI safety and governance risk (absent even at Davos, where the audience is precisely the constituency that prices these). These are not oversights. They are governed omissions.</p>
+          </div>
+
+          <div class="analysis-section">
+            <h2 class="analysis-title">Audience Adaptation</h2>
+            <p class="analysis-body"><strong>Earnings Call (January 2025): Physics for capital markets.</strong> The dominant register is scientific inevitability applied to financial decisions. "AI scaling laws continue to compound," "Moore's Law," "bending the curve," "fleet physics": each borrows the grammar of natural law to frame a $22.6B quarterly capex program as mandate rather than bet. "Fungible" is the key load-bearing word: it appears across both Nadella and Hood with unusual coordination, converting a massive concentrated position into optionality language. The DeepSeek-Jevons reframe (lower token costs = higher demand, not lower revenue) arrives in Q&amp;A polished and rehearsed, suggesting a prepared answer to a question the team knew was coming. For this room, Nadella leads with metrics and supports with physics.</p>
+            <p class="analysis-body"><strong>Podcast (December 2024): Philosophy for the intellectually curious.</strong> This is the only context where Nadella reaches for personal idiom ("bolt from the blue," "bet the farm"), the only context where hubris is framed as civilizational collapse risk rather than corporate culture problem, and the only context where Carol Dweck's work receives genuine warmth. The technical animation around pre-training versus inference-time-compute economics is authentic: that section has the texture of intellectual narration, not rehearsed product positioning. "Structural position" functions here as a genuine analytical frame, not a rehearsed phrase. For this room, Nadella leads with frameworks and supports with personal history.</p>
+            <p class="analysis-body"><strong>Davos / All-In (January 2026): Geopolitics for capital allocators.</strong> The third register is entirely absent from the other two sources. "American tech stack as global platform, not imperialism" is a frame built specifically for an audience of global investors and policy-adjacent figures where regulatory anxiety and geopolitical alignment both price into capital decisions. The attribution pattern intensifies here, crediting the Notion CEO for "manager of infinite minds" and citing economists for technology diffusion curves, because this room responds to intellectual stewardship over competitive aggression. The personal warmth (immigration story, marriage anecdote) is deployed at the top as trust-building before the pivot to geopolitical register. For this room, Nadella leads with global stakes and supports with market structure.</p>
+          </div>
+
+          <div class="analysis-section">
+            <h2 class="analysis-title">Narrative Arc</h2>
+            <p class="analysis-body" style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:#888;margin-bottom:1.25rem;">December 2024 &rarr; January 2025 &rarr; January 2026</p>
+            <p class="analysis-body"><strong>Confidence trajectory: from personal to financial to geopolitical.</strong> The podcast carries the most personal commitment: "bet the farm" on OpenAI is delivered as a genuine account of conviction, not a rehearsed corporate history. The earnings call eighteen months later is the financial crystallization of that bet: $13B AI revenue run rate at 175% YoY becomes the lede and the closer, and the language shifts from personal risk to measurable return. By Davos January 2026, the confidence register has expanded to the civilizational: Microsoft's infrastructure role is framed as a geopolitical necessity, not a business achievement. The arc moves from committed &rarr; validated &rarr; inevitable.</p>
+            <p class="analysis-body"><strong>The OpenAI relationship reframes across the span.</strong> In the podcast it's "bet the farm": genuine, personal, committed. In the earnings call it's "fungible fleet": hedged, optionality-framed, investor-calibrated. At Davos it's "we have the IP / multi-model agnostic": strategically distanced, positioning Microsoft above the relationship rather than defined by it. Three framings of the same partnership, each reflecting the pressure of the moment: the podcast preceded the Stargate announcement and its governance turbulence; the earnings call followed it with coordinated talking points; Davos reflects a year of regulatory and competitive pressure that has pushed Nadella toward greater strategic independence in language.</p>
+            <p class="analysis-body"><strong>One visible crack, then closure.</strong> The earnings call is the only source where a defensive register appears. Azure's non-AI performance came in at the bottom of guidance range, and Hood's partition, "non-AI ACR" underperformance through "scale motions," is careful and precise. Nadella's reframe ("you would rather win the new than just protect the past") is smooth but clearly responsive. By Davos January 2026, no defensive register exists anywhere. The infrastructure moat thesis is stated, not argued. That shift in footing, from responding to a miss to never acknowledging one, marks the single clearest arc across the full period.</p>
+            <p class="analysis-body"><strong>What did not shift.</strong> The labor deflection pattern is identical across all three sources. In December 2024 he mentions headcount reduction as arithmetic and moves on. In January 2025 the Copilot seat expansion figure substitutes for any churn or displacement data. In January 2026 the LinkedIn restructuring (four roles &rarr; "full stack builders") is framed as scope expansion. Thirteen months, no movement on this axis. It is the most durable communications choice in the dataset.</p>
+          </div>
+
+          <div class="analysis-section">
+            <h2 class="analysis-title">Language Inventory</h2>
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th>Phrase / Frame</th>
+                  <th>Sources</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Structural position</td>
+                  <td>Podcast</td>
+                  <td>Bedrock in unguarded register; absent in prepared contexts</td>
+                </tr>
+                <tr>
+                  <td>Token factories</td>
+                  <td>Davos</td>
+                  <td>Introduced January 2026; capital-market shorthand for infrastructure moat</td>
+                </tr>
+                <tr>
+                  <td>Compounding / compound</td>
+                  <td>Earnings, Podcast</td>
+                  <td>Stable; applied to revenue and technical capability simultaneously</td>
+                </tr>
+                <tr>
+                  <td>Fungible / fungibility</td>
+                  <td>Earnings</td>
+                  <td>Capital-market-specific; not used in conversational or geopolitical registers</td>
+                </tr>
+                <tr>
+                  <td>AI scaling laws</td>
+                  <td>Earnings</td>
+                  <td>Investor-specific; replaced by historical analogy at Davos</td>
+                </tr>
+                <tr>
+                  <td>American tech stack</td>
+                  <td>Davos</td>
+                  <td>New January 2026; geopolitical register only</td>
+                </tr>
+                <tr>
+                  <td>Macro-delegate, micro-steal</td>
+                  <td>Davos</td>
+                  <td>Borrowed attribution (Sacks); new January 2026</td>
+                </tr>
+                <tr>
+                  <td>Structural / stack framing</td>
+                  <td>All three</td>
+                  <td>Ascending; grows more explicit and confident across the period</td>
+                </tr>
+                <tr>
+                  <td>Winner-take-all (rejection)</td>
+                  <td>Podcast, Davos</td>
+                  <td>Stable; anti-monopoly inoculation at vocabulary level</td>
+                </tr>
+                <tr>
+                  <td>Proof of concepts to enterprise-wide deployments</td>
+                  <td>Earnings</td>
+                  <td>Investor-specific; not present in other registers</td>
+                </tr>
+                <tr>
+                  <td>Growth mindset / Carol Dweck</td>
+                  <td>Podcast</td>
+                  <td>Personal bedrock; appears only when unguarded</td>
+                </tr>
+                <tr>
+                  <td>Jevons paradox (token cost framing)</td>
+                  <td>Earnings</td>
+                  <td>Prepared, rehearsed; deployed in Q&amp;A precisely</td>
+                </tr>
+                <tr>
+                  <td>Bet the farm</td>
+                  <td>Podcast</td>
+                  <td>Colloquial; single use, genuine register break</td>
+                </tr>
+                <tr>
+                  <td>Bolt from the blue</td>
+                  <td>Podcast</td>
+                  <td>Colloquial; marks genuine surprise about ChatGPT moment</td>
+                </tr>
+                <tr>
+                  <td>Permission (customer-mandate filter)</td>
+                  <td>Podcast</td>
+                  <td>Conversational; maps to logo parade in investor contexts</td>
+                </tr>
+                <tr>
+                  <td>Ecosystem effects</td>
+                  <td>Davos, Earnings</td>
+                  <td>Stable; anti-winner-take-all infrastructure</td>
+                </tr>
+                <tr>
+                  <td>Moore's Law</td>
+                  <td>Earnings</td>
+                  <td>Physics-for-investors framing; investor context only</td>
+                </tr>
+                <tr>
+                  <td>TAM</td>
+                  <td>Davos, Earnings</td>
+                  <td>Stable; more explicit in capital-allocator contexts</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="analysis-section">
+            <h2 class="analysis-title">Sources</h2>
+            <ul class="links-list" style="margin-top:0.5rem;">
+              <li><a href="https://podcasts.happyscribe.com/all-in-with-chamath-jason-sacks-friedberg/microsoft-ceo-satya-nadella-on-ai-s-business-revolution-what-happens-to-saas-openai-and-microsoft-live-from-davos" target="_blank" rel="noopener noreferrer">Nadella at Davos, All-In Podcast, January 2026</a></li>
+              <li><a href="https://www.fool.com/earnings/call-transcripts/2025/01/29/microsoft-msft-q2-2025-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Microsoft Q2 2025 Earnings Call, The Motley Fool, January 29, 2025</a></li>
+              <li><a href="https://youtu.be/9NtsnzRFJ_o?si=-XkMhKPhMQVG4kfk" target="_blank" rel="noopener noreferrer">Satya Nadella, BG2 with Bill Gurley and Brad Gerstner, December 12, 2024</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="tab-panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2">
+          <p class="soon-note">Analysis publishing June 2026.</p>
+        </div>
+
+        <div class="tab-panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3">
+          <p class="soon-note">Analysis publishing June 2026.</p>
+        </div>
+
+        <div class="tab-panel" id="panel-4" role="tabpanel" aria-labelledby="tab-4">
+          <p class="soon-note">Analysis publishing June 2026.</p>
+        </div>
+
+      </div>
+
+      <div class="why-section">
+        <p class="prose-label">Why it matters</p>
+        <p class="prose-body">Most executive communications analysis is either too broad, impressionistic and uncitable, or too narrow, reduced to quote-counting. This tool demonstrates a structured analytical method a CCO or VP of Communications could apply to any executive as preparation for media training, crisis counsel, or competitive intelligence. It also demonstrates that rigorous communications analysis does not require expensive tooling: only a defined framework, primary sources, and disciplined synthesis.</p>
+      </div>
+
+      <div class="links-section">
+        <p class="prose-label">External Links</p>
+        <ul class="links-list">
+          <li><a href="https://rafaelgerena.github.io/builds/speech-analyzer/">Live tool</a></li>
+          <li><a href="https://rafaelgerena.github.io/builds/">All builds</a></li>
+        </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <footer>Rafael Gerena &nbsp;&middot;&nbsp; New York</footer>
+
+  <script>
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

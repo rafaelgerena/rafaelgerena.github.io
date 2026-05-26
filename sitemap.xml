@@ -51,6 +51,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://rafaelgerena.github.io/builds/speech-analyzer/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://rafaelgerena.github.io/writing/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
