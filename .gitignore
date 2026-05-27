@@ -1,0 +1,8 @@
+.DS_Store
+builds/**/*.txt
+builds/**/CLAUDE.md
+builds/**/PRD.md
+builds/**/README.md
+builds/**/progress.md
+CLAUDE.md
+README.md
