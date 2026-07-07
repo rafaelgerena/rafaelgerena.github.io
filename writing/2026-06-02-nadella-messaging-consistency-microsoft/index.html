@@ -176,33 +176,10 @@
 
     #content a:hover { opacity: 0.55; }
 
-    #sources {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #D8D5CE;
-    }
-
-    #sources h2 {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #999;
-      font-weight: 400;
-      margin-bottom: 0.75rem;
-    }
-
-    #sources p {
-      font-size: 0.8rem;
-      color: #999;
-      line-height: 1.55;
-      margin-bottom: 0.6rem;
-    }
-
-    #sources a {
-      color: #999;
-    }
-
-    #sources a:hover { opacity: 0.7; }
+    .sources { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #ccc; font-size: 0.875rem; }
+    .sources h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; margin-bottom: 1rem; }
+    .sources ol { padding-left: 1.25rem; }
+    .sources li { margin-bottom: 0.5rem; }
 
     .post-footer {
       margin-top: 3.5rem;
@@ -272,12 +249,14 @@
         <p>Rigorous communications analysis has never required expensive tooling. It has always required the right questions.</p>
       </section>
 
-      <section id="sources">
+      <div class="sources">
         <h2>Sources</h2>
-        <p>BG2 Pod &middot; <a href="https://youtu.be/9NtsnzRFJ_o?si=TjdnVn1bI5u6IJFS" target="_blank" rel="noopener noreferrer">Satya Nadella | BG2 w/ Bill Gurley &amp; Brad Gerstner</a> &middot; December 12, 2024</p>
-        <p>The Motley Fool &middot; <a href="https://www.fool.com/earnings/call-transcripts/2025/01/29/microsoft-msft-q2-2025-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Microsoft (MSFT) Q2 2025 Earnings Call Transcript</a> &middot; January 29, 2025</p>
-        <p>All-In Podcast &middot; <a href="https://podcasts.happyscribe.com/all-in-with-chamath-jason-sacks-friedberg/microsoft-ceo-satya-nadella-on-ai-s-business-revolution-what-happens-to-saas-openai-and-microsoft-live-from-davos" target="_blank" rel="noopener noreferrer">Microsoft CEO Satya Nadella on AI's Business Revolution: Live from Davos</a> &middot; January 21, 2026</p>
-      </section>
+        <ol>
+          <li>BG2 Pod &middot; Satya Nadella | BG2 w/ Bill Gurley &amp; Brad Gerstner &middot; December 12, 2024 &middot; <a href="https://youtu.be/9NtsnzRFJ_o?si=TjdnVn1bI5u6IJFS" target="_blank" rel="noopener noreferrer">Read</a></li>
+          <li>The Motley Fool &middot; Microsoft (MSFT) Q2 2025 Earnings Call Transcript &middot; January 29, 2025 &middot; <a href="https://www.fool.com/earnings/call-transcripts/2025/01/29/microsoft-msft-q2-2025-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Read</a></li>
+          <li>All-In Podcast &middot; Microsoft CEO Satya Nadella on AI's Business Revolution: Live from Davos &middot; January 21, 2026 &middot; <a href="https://podcasts.happyscribe.com/all-in-with-chamath-jason-sacks-friedberg/microsoft-ceo-satya-nadella-on-ai-s-business-revolution-what-happens-to-saas-openai-and-microsoft-live-from-davos" target="_blank" rel="noopener noreferrer">Read</a></li>
+        </ol>
+      </div>
 
       <footer class="post-footer">
         <a href="/writing/">&#8592; Back to Writing</a>
