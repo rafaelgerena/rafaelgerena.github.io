@@ -6,3 +6,25 @@ builds/**/README.md
 builds/**/progress.md
 CLAUDE.md
 README.md
+
+# macOS
+**/.DS_Store
+
+# Claude Code
+.claude/
+**/.claude/
+**/CLAUDE.md
+*.claude-session
+*.claude-export
+
+# Secrets — never commit these
+.env
+.env.*
+*.env
+**/.env
+**/*.env
+secrets.json
+credentials.json
+*_key.json
+*.pem
+*.p12
