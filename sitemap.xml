@@ -116,6 +116,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-05-27-ai-communications-governance-failure/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rafaelgerena.github.io/writing/2026-05-25-cloudflare-communications-framework/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
