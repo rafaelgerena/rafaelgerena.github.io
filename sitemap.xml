@@ -61,6 +61,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://rafaelgerena.github.io/writing/2026-08-20-synthetic-customer-accuracy-human-judgment/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rafaelgerena.github.io/writing/2026-08-07-cognitive-surrender-ai-confidence-accuracy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
